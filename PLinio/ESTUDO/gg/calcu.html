@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="calcu.css">
+  <title>Calculadora em JavaScript</title>
+</head>
+<body>
+  <div class="batata">
+    <div class="test">
+  <input type="text" id="display" disabled>
+  <br>
+  <button class="lala" onclick="clearDisplay()">C</button>
+  <button class="lala" onclick="deleteChar()">CE</button>
+  <button class="lala"  onclick="addOperation('/')">/</button>
+  <button class="lala" onclick="addDigit('7')">7</button>
+  <button class="lala" onclick="addDigit('8')">8</button>
+  <button class="lala" onclick="addDigit('9')">9</button>
+  <button class="lala" onclick="addOperation('*')">*</button>
+  <br>
+  <button class="lala" onclick="addDigit('4')">4</button>
+  <button class="lala" onclick="addDigit('5')">5</button>
+  <button class="lala" onclick="addDigit('6')">6</button>
+  <button class="lala" onclick="addOperation('-')">-</button>
+  <br>
+  <button class="lala" onclick="addDigit('1')">1</button>
+  <button class="lala" onclick="addDigit('2')">2</button>
+  <button class="lala" onclick="addDigit('3')">3</button>
+  <button class="lala" onclick="addOperation('+')">+</button>
+  <br>
+  <button class="lala" onclick="addDigit('0')">0</button>
+  <button class="lala" onclick="addDecimal('.')">.</button>
+  <button class="lala" onclick="calculate()">=</button>
+  <br>
+</div>
+</div>
+  <script>
+    let display = document.getElementById('display');
+    let currentNumber = '0';
+    let storedNumber = null;
+    let operation = null;
+    let decimal = false;
+
+    function addDigit(digit) {
+      if (digit === '.' && decimal) return;
+      if (currentNumber === '0' && digit !== '.') {
+        currentNumber = digit;
+      } else {
+        currentNumber += digit;
+      }
+      decimal = (digit === '.') ? true : decimal;
+      display.value = currentNumber;
+    }
+
+    function addOperation(op) {
+      calculate();
+      operation = op;
+      storedNumber = currentNumber;
+      currentNumber = '0';
+      decimal = false;
+    }
+
+    function addDecimal() {
+      if (decimal) return;
+      currentNumber += '.';
+      decimal = true;
+      display.value = currentNumber;
+    }
+
+    function clearDisplay() {
+      currentNumber = '0';
+      storedNumber = null;
+      operation = null;
+      decimal = false;
+      display.value = currentNumber;
+    }
+
+    function deleteChar() {
+      if (currentNumber.length > 1) {
+        currentNumber = currentNumber.substring(0, currentNumber.length - 1);
+      } else {
+        currentNumber = '0';
+      }
+      display.value = currentNumber;
+    }
+
+    function calculate() {
+      if (!operation || !storedNumber) return;
+      let result;
+      let num1 = parseFloat(storedNumber);
+      let num2 = parseFloat(currentNumber);
+      switch(operation) {
+        case '+':
+          result = num1 + num2;
+          break;
+        case '-':
+          result = num1 - num2;
+          break;
+        case '*':
+          result = num1 * num2;
+          break;
+        case '/':
+          result = num1 / num2;
+          break;
+      }
+      currentNumber = result.toString();
+      storedNumber = null;
+      operation = null;
+      decimal = currentNumber.includes('.');
+      display.value = currentNumber;
+    }
+  </script>
+</body>
+</html>

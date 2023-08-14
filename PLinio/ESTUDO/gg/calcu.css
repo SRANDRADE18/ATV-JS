@@ -1,0 +1,29 @@
+*{
+    margin: 0px;
+    box-sizing: border-box;
+}
+body{
+    background-color: black;
+
+}
+.batata{
+  display: flex;
+  justify-content: center;
+}
+input{
+    border-radius: 50px;
+    background-color: aliceblue;
+    color: black;
+    width: 820px;
+    height: 50px;
+}
+.lala{
+    color: rgb(0, 0, 0);
+    background-color: rgb(51, 255, 0);
+    width: 50px;
+    height: 50px;
+    padding: 55px ;
+}
+button{
+    border-radius: 50px;
+}
